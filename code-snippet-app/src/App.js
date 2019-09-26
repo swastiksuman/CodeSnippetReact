@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Table, Form } from 'react-bootstrap';
-
+import axios from 'axios';
 
 function App(props) {
+  const [data, setData] = useState([]);
+  
+  const getData = async e => {
+    const resp = await axios.get('/getCourses');
+    console.log(resp);
+    setData(resp.data);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        '/getCourses',
+      );
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <ListOfSnippets listOfData={props.listOfData}></ListOfSnippets>
+      <ListOfSnippets listOfData={data}></ListOfSnippets>
       <AddUpdateSnippet></AddUpdateSnippet>
+      <button onClick={(e)=>{getData();}}>Click</button>
     </div>
   );
 }
@@ -23,9 +42,9 @@ function ListOfSnippets(props){
   </tr>
   {
     props.listOfData.map((data)=> <tr>
-      <td>{data[0]}</td>
-      <td>{data[1]}</td>
-      <td>{data[2]}</td>
+      <td>{data.id}</td>
+      <td>{data.type}</td>
+      <td>{data.snippet}</td>
       </tr>
     )
   }
