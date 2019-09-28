@@ -54,6 +54,7 @@ function ListOfSnippets(props){
 
 function AddUpdateSnippet(props){
   const [snippet, setSnippet] = useState('');
+  const [type, setType] = useState('C');
   const addSnippet = (event) => {
     event.preventDefault();
     console.log(event.target);
@@ -64,7 +65,7 @@ function AddUpdateSnippet(props){
     
     let res = axios.post('/submitSnippet', {
       
-      type: 'C',
+      type: type,
       snippet: snippet
     });
     console.log(res.data);
@@ -72,10 +73,10 @@ function AddUpdateSnippet(props){
   return (
     <form>
       <input value={snippet} onChange={(e)=>{console.log(e);setSnippet(e.target.value);}}></input>
-      <select>
-        <option>C</option>
-        <option>C++</option>
-        <option>Java</option>
+      <select value={type} onChange={e=>{setType(e.target.value)}}>
+        <option value="C">C</option>
+        <option value="C++">C++</option>
+        <option value="Java">Java</option>
       </select>
       <button onClick={(e)=>createUpdateSnippet(e)}>Submit</button>
     </form>
