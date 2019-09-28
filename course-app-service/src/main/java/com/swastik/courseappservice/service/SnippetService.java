@@ -22,4 +22,8 @@ public class SnippetService {
 		});
 		return listOfSnippets;
 	}
+	
+	public Snippet saveSnippet(Snippet snippet) {
+		return snippetRepository.save(snippet);
+	}
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Table, Form } from 'react-bootstrap';
+import { Table, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 function App(props) {
@@ -53,21 +53,32 @@ function ListOfSnippets(props){
 }
 
 function AddUpdateSnippet(props){
+  const [snippet, setSnippet] = useState('');
+  const addSnippet = (event) => {
+    event.preventDefault();
+    console.log(event.target);
+  }
+
+  const createUpdateSnippet = (e) => {
+    e.preventDefault();
+    
+    let res = axios.post('/submitSnippet', {
+      
+      type: 'C',
+      snippet: snippet
+    });
+    console.log(res.data);
+  }
   return (
-    <Form>
-      <Form.Group controlId="formCodeSnippet">
-      <Form.Label>Code Snippet</Form.Label>
-      <Form.Control type="text" placeholder="Code Snippet" />
-    </Form.Group>
-    <Form.Group controlId="formCodeType">
-    <Form.Label>Select Code Type</Form.Label>
-    <Form.Control as="select">
-      <option>C</option>
-      <option>C++</option>
-      <option>Java</option>
-    </Form.Control>
-  </Form.Group>
-    </Form>
+    <form>
+      <input value={snippet} onChange={(e)=>{console.log(e);setSnippet(e.target.value);}}></input>
+      <select>
+        <option>C</option>
+        <option>C++</option>
+        <option>Java</option>
+      </select>
+      <button onClick={(e)=>createUpdateSnippet(e)}>Submit</button>
+    </form>
   )
 }
 export default App;
