@@ -17,7 +17,7 @@ function AddUpdateSnippet(props){
         type: type,
         snippet: snippet
       });
-      console.log(res.data);
+      return res;
     }
     return (
       <form>
@@ -27,7 +27,7 @@ function AddUpdateSnippet(props){
           <option value="C++">C++</option>
           <option value="Java">Java</option>
         </select>
-        <button onClick={(e)=>createUpdateSnippet(e)}>Submit</button>
+        <button onClick={(e)=>{e.preventDefault(); var res = createUpdateSnippet(e);}}>Submit</button>
       </form>
     )
   }

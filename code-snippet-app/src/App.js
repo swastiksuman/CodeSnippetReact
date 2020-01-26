@@ -9,27 +9,21 @@ import ListOfSnippets from './Snippets/SnippetListing'
 function App(props) {
   const [data, setData] = useState([]);
   
-  const getData = async e => {
-    const resp = await axios.get('/getCourses');
-    console.log(resp);
-    setData(resp.data);
+  const getCourseList = () => {
+    
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        '/getCourses',
-      );
-      setData(result.data);
-    };
-    fetchData();
+  
+  useEffect(() => {  
+    axios.get(
+      '/getCourses',
+    ).then((res) => {setData(res.data)});
   }, []);
 
   return (
     <div className="App">
       <ListOfSnippets listOfData={data}></ListOfSnippets>
       <AddUpdateSnippet></AddUpdateSnippet>
-      <button onClick={(e)=>{getData();}}>Click</button>
     </div>
   );
 }
