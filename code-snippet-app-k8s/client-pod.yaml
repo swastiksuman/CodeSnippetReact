@@ -9,4 +9,4 @@ spec:
                 - name: client
                   image: swastiksuman/code-snippet-react
                   ports:
-                        - containerPort: 8081
+                        - containerPort: 8080
